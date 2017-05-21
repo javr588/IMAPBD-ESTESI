@@ -1,0 +1,170 @@
+﻿@model IMAPBD.ViewModel.AdminViewModel.CrearPaquetesViewModel
+@{
+    ViewBag.Title = "CrearPaquete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+
+    <div class="col-md-5 col-xs-12">
+        <h2>Crear paquetes</h2>
+        <!-- On rows -->
+
+    </div>
+
+    <div class="col-md-7 col-xs-12">
+        <button type="submit" class="btn btn-success pull-right">Publicar paquete</button>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-5 col-xs-12">
+        <form>
+            <div class="form-group">
+                @Html.TextAreaFor( x=> x.InformacionGeneral,new { @class= "form-control", placeholder= "Información general" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(x=>x.Tipo, new{ @class = "form-control", placeholder = "Tipo" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.Origen, new { @class = "form-control", placeholder = "Origen" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.Destino, new { @class = "form-control", placeholder = "Destino" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.FechaSalida, new { @class = "form-control", placeholder = "Fecha de salida" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.FechaLlegada, new { @class = "form-control", placeholder = "Fecha de llegada" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.FechaVencimiento, new { @class = "form-control", placeholder = "Fecha de vencimiento" })
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Costo, new { @class = "form-control", placeholder = "Costo" })
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Moneda, new { @class = "form-control", placeholder = "Moneda" })
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="col-md-7 col-xs-12">
+        <h3>Actividades</h3>
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <td>Tipo</td>
+                        <td>Origen</td>
+                        <td>Destino</td>
+                        <td>Fecha salida</td>
+                        <td>Fecha llegada</td>
+                        <td>Costo</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Viaje</td>
+                        <td>Lima</td>
+                        <td>Trujillo</td>
+                        <td>01-02-2017</td>
+                        <td>01-03-2017</td>
+                        <td>$30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form>
+            <h3>Crear actividad</h3>
+            <div class="row">
+
+                <div class="col-xs-6">
+           
+                    <div class="form-group">
+                        <select id="tipo_actividad" class="form-control">
+                            <option>Viaje</option>
+                            <option>Lima</option>
+                            <option>Estadia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="origen_actividad" placeholder="Origen">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="destino_actividad" placeholder="Destino">
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="fSalidad__actividad" placeholder="Fecha salida">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="fLlegada_actividad" placeholder="Fecha llegada">
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="costo_actividad" placeholder="Costo">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="moneda_actividad" placeholder="Moneda">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" id="btnEnviar" class="btn btn-primary pull-right">Agregar actividad</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts{
+    
+    <script>
+        $("#btnEnviar").onclick(function () {
+            alert("Holaaa");
+        })
+    </script>
+}
