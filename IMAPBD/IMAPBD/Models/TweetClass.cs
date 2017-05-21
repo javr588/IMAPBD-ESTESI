@@ -16,7 +16,7 @@ using Google;
 using System.Net.Http;
 using Google.Cloud.Datastore.V1;
 
-namespace IMAPBD.Controllers
+namespace IMAPBD.Models
 {
     public class TweetClass
     {

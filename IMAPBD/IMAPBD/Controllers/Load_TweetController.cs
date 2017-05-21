@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using IMAPBD.Models;
+
 
 namespace IMAPBD.Controllers
 {
@@ -20,8 +22,8 @@ namespace IMAPBD.Controllers
 
         public ActionResult Load()
         {
-            IMAPBD.Controllers.TweetClass tweet = new IMAPBD.Controllers.TweetClass();
-            List<object> tweets = tweet.GetTweet();
+            TweetClass tweet = new TweetClass();
+            tweet.GetTweet();
 
            /* TweetList.DataSource = tweets;
             TweetList.DataBind();*/
