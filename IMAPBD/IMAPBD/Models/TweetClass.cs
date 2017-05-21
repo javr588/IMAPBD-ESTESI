@@ -140,6 +140,7 @@ namespace IMAPBD.Models
 
                 tweetCount++;
             }
+            InsertPaquete();
 
         }
 
@@ -183,9 +184,59 @@ namespace IMAPBD.Models
             
             using (DatastoreTransaction transaction = db.BeginTransaction())
             {
-                transaction.Upsert(task);
+                transaction.Upsert(task); 
                 transaction.Commit();
             }
+            ///////////////////////////////////////////// db access ///////////////////////////////////
+            #endregion
+        }
+
+        public void InsertPaquete()
+        {
+            #region db access
+            ///////////////////////////////////////////// db access ///////////////////////////////////
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
+
+            string projectID = "imapbd-load";
+
+            DatastoreDb db = DatastoreDb.Create(projectID, "");
+            string kind = "paqueteList";
+
+            KeyFactory keyFactory = db.CreateKeyFactory(kind);
+            Key key = keyFactory.CreateIncompleteKey();
+
+            Entity task = new Entity();
+            task.Key = key;
+          
+            //paquete
+            task.Properties.Add("costo",1);
+            task.Properties.Add("destino","Trujillo");
+            task.Properties.Add("fecha_llegada",DateTime.Now);
+            task.Properties.Add("fecha_salida",DateTime.Now);
+            task.Properties.Add("fecha_venc",DateTime.Now);
+            task.Properties.Add("info_general","info genral del paquete");
+            task.Properties.Add("moneda","GBP");
+            task.Properties.Add("costo",15.5);
+            task.Properties.Add("empresa","viaje");
+            task.Properties.Add("origen","Lima");
+
+            for (int i = 0; i < 2; i++) {
+                task.Properties.Add("Tipo"+i.ToString(), "tipo"+i.ToString());
+                task.Properties.Add("OrigenAct"+i.ToString(),"orien"+i.ToString() );
+                task.Properties.Add("DestinoAct"+i.ToString(), "destino"+i.ToString());
+                task.Properties.Add("FechaSal"+i.ToString(), "fecsal"+i.ToString());
+                task.Properties.Add("FechaLleg"+i.ToString(), "fecll"+i.ToString());
+                task.Properties.Add("costo" + i.ToString(), i);
+                task.Properties.Add("moneda" + i.ToString(), "moneda"+i.ToString());
+            
+            }
+
+                using (DatastoreTransaction transaction = db.BeginTransaction())
+                {
+                    transaction.Upsert(task);
+                    transaction.Commit();
+                }
             ///////////////////////////////////////////// db access ///////////////////////////////////
             #endregion
         }
