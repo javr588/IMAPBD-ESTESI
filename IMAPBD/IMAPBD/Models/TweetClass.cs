@@ -20,9 +20,10 @@ namespace IMAPBD.Models
 {
     public class TweetClass
     {
+        string projectID = "imapbd-load";
         public void GetTweet()
         {
-
+               QueryPlace();
 
             Auth.SetUserCredentials("SbeN3F01n4VfL38DyMgFJtCaU", "ZWh95vzbBIBoLc0oUP4HeOSAAJ76i9vYd9rcKsYruVesPkcV9h", "855199954087944193-siJw0Huqbl64Kcyyq3tPxBm75eeS4E7", "oenJfXW32nD2llokrS0ZO3eMND6nB7k36WxRs7VeJK3P6");
             var userTweet = User.GetAuthenticatedUser();
@@ -140,7 +141,7 @@ namespace IMAPBD.Models
 
                 tweetCount++;
             }
-            InsertPaquete();
+         
 
         }
 
@@ -151,7 +152,7 @@ namespace IMAPBD.Models
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
 
-            string projectID = "imapbd-load";
+          
 
             DatastoreDb db = DatastoreDb.Create(projectID, "");
             string kind = "Lugar_Tweet";
@@ -210,14 +211,13 @@ namespace IMAPBD.Models
             task.Key = key;
           
             //paquete
-            task.Properties.Add("costo",1);
             task.Properties.Add("destino","Trujillo");
             task.Properties.Add("fecha_llegada",DateTime.Now);
             task.Properties.Add("fecha_salida",DateTime.Now);
             task.Properties.Add("fecha_venc",DateTime.Now);
             task.Properties.Add("info_general","info genral del paquete");
             task.Properties.Add("moneda","GBP");
-            task.Properties.Add("costo",15.5);
+            task.Properties.Add("costo", Convert.ToDouble(15.5));
             task.Properties.Add("empresa","viaje");
             task.Properties.Add("origen","Lima");
 
@@ -239,6 +239,22 @@ namespace IMAPBD.Models
                 }
             ///////////////////////////////////////////// db access ///////////////////////////////////
             #endregion
+        }
+
+        public void QueryPlace() {
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
+
+            DatastoreDb db = DatastoreDb.Create(projectID, "");
+            Query query = new Query("Lugar_Tweet")
+            {
+                Filter = Filter.Equal("lugar", "Cusco"),
+                //Order = { { "bueno", PropertyOrder.Types.Direction.Descending } }
+            };
+
+          
+            DatastoreQueryResults tasks = db.RunQuery(query);
+
         }
     }
 }
