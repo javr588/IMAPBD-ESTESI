@@ -20,9 +20,9 @@ namespace IMAPBD.Controllers
 {
     public class TweetClass
     {
-     public void GetTweet()
+        public void GetTweet()
         {
-          
+
 
             Auth.SetUserCredentials("SbeN3F01n4VfL38DyMgFJtCaU", "ZWh95vzbBIBoLc0oUP4HeOSAAJ76i9vYd9rcKsYruVesPkcV9h", "855199954087944193-siJw0Huqbl64Kcyyq3tPxBm75eeS4E7", "oenJfXW32nD2llokrS0ZO3eMND6nB7k36WxRs7VeJK3P6");
             var userTweet = User.GetAuthenticatedUser();
@@ -34,8 +34,8 @@ namespace IMAPBD.Controllers
                 var searchParam = Search.SearchQueryParameterGenerator.CreateSearchTweetParameter(hash);// multi "#viaje #playas" campo diversion travel summer verano invierno primavera
                 searchParam.MaximumNumberOfResults = 15;
 
-                searchParam.Until = Convert.ToDateTime("05/21/2017");
-                searchParam.Since = Convert.ToDateTime("05/10/2017");
+                searchParam.Until = DateTime.Now;
+                searchParam.Since = DateTime.Now.Date.AddDays(-1);
 
                 searchParam.FilterTweetsNotContainingGeoInformation = true;
 
@@ -59,7 +59,7 @@ namespace IMAPBD.Controllers
 
             Google.Apis.Auth.OAuth2.UserCredential credential;
 
-            using (var stream = new FileStream(@"C:\Users\Javier\Downloads\IMAPBD-Misc\Sentiment analisis\imapbd\IMAPBD\IMAPBD\OAuth\imapbd_pred_cred.json", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(HttpContext.Current.Server.MapPath(@"~\OAuth\imapbd_pred_cred.json"), FileMode.Open, FileAccess.Read))
             {
 
                 credential = Google.Apis.Auth.OAuth2.GoogleWebAuthorizationBroker.AuthorizeAsync(
@@ -105,7 +105,7 @@ namespace IMAPBD.Controllers
 
                 DateTime tweetDate = tweetCreated[tweetCount].CreatedAt.Date;
                 var tweetPlace = tweetCreated[tweetCount].Place;
-#region file write
+                #region file write
                 /*
                 string path = @"C:\Users\Javier\Downloads\IMAPBD-Misc\Sentiment analisis\sent_place.csv";
                 if (!File.Exists(path))
@@ -129,15 +129,15 @@ namespace IMAPBD.Controllers
                             //access
                     }  }
 */
-#endregion
-                  
-foreach (string sent in sent_tweet)
-                        {
-                          
-                            InsertBD(sent,sentScore.ToArray(),tweetDate,tweetPlace);
-                          
-                        }
-            
+                #endregion
+
+                foreach (string sent in sent_tweet)
+                {
+
+                    InsertBD(sent, sentScore.ToArray(), tweetDate, tweetPlace);
+
+                }
+
                 tweetCount++;
             }
 
@@ -147,7 +147,7 @@ foreach (string sent in sent_tweet)
         {
             #region db access
             ///////////////////////////////////////////// db access ///////////////////////////////////
-            string credential_path = @"C:\Users\Javier\Downloads\IMAPBD-Misc\Sentiment analisis\imapbd\IMAPBD\IMAPBD\OAuth\IMAPBD - Load-db-access.json";
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
 
             string projectID = "imapbd-load";
@@ -170,17 +170,17 @@ foreach (string sent in sent_tweet)
             task.Properties.Add("dia", fecha.DayOfWeek.ToString());
             task.Properties.Add("mes", fecha.Month);
             task.Properties.Add("anio", fecha.Year);
-            if(string.IsNullOrEmpty(lugar.Name)){
+            
+            if(lugar == null){
                 task.Properties.Add("lugar", "");
+                task.Properties.Add("pais", "");
             }else
             {
+                task.Properties.Add("pais", lugar.Country);
                 task.Properties.Add("lugar", lugar.Name);
             }            
             
-            task.Properties.Add("lugar", lugar.Name);
-            task.Properties.Add("pais", lugar.Country);
-
-
+            
             using (DatastoreTransaction transaction = db.BeginTransaction())
             {
                 transaction.Upsert(task);
