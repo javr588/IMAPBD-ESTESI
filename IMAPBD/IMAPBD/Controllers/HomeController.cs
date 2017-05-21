@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using IMAPBD.ViewModel;
 namespace IMAPBD.Controllers
 {
     public class HomeController : Controller
@@ -15,78 +15,20 @@ namespace IMAPBD.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
 
+        public ActionResult Login()
+        {
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult Login(LoginViewModel model)
         {
-            ViewBag.Message = "Your contact page.";
-
+            if(model.User.Equals("admin") && model.User.Equals("1234"))
+            {
+                RedirectToAction("Index", "Admin");
+            }
             return View();
         }
-
-        public ActionResult Load_Tweet()
-        {
-            ViewBag.Message = "tweet loader";
-
-            return View();
-        }
-
-        public ActionResult crearPaquete()
-        {
-            ViewBag.Message = "crearPaquete";
-
-            return View();
-        }
-
-        public ActionResult index_user()
-        {
-            ViewBag.Message = "index_User";
-
-            return View();
-        }
-
-        public ActionResult login()
-        {
-            ViewBag.Message = "login";
-
-            return View();
-        }
-
-        public ActionResult lugares()
-        {
-            ViewBag.Message = "lugares";
-
-            return View();
-        }
-
-
-        public ActionResult paquete()
-        {
-            ViewBag.Message = "paquete";
-
-            return View();
-        }
-
-
-        public ActionResult registro_empresa()
-        {
-            ViewBag.Message = "registro_empresa";
-
-            return View();
-        }
-
-
-        public ActionResult registro_user()
-        {
-            ViewBag.Message = "registro_user";
-
-            return View();
-        }
-
     }
 }
