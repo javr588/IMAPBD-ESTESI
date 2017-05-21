@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <NuGetPackageImportStamp>4738e902</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -313,7 +314,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Load_TweetController.cs" />
     <Compile Include="Models\TweetClass.cs" />
@@ -325,6 +325,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\bg.jpg" />
+    <Content Include="Content\images\mapa-demo.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -383,6 +388,11 @@
     <Content Include="Global.asax" />
     <Content Include="OAuth\imapbd_pred_cred.json" />
     <Content Include="OAuth\IMAPBD - Load-db-access.json" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -398,20 +408,6 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Views\Home\crearPaquete.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Home\index_user.aspx" />
-    <Content Include="Views\Home\Load_Tweet.aspx" />
-    <Content Include="Views\Home\login.aspx" />
-    <Content Include="Views\Home\lugares.aspx" />
-    <Content Include="Views\Home\paquete.aspx" />
-    <Content Include="Views\Home\registro_empresa.aspx" />
-    <Content Include="Views\Home\registro_user.aspx" />
-    <Content Include="Views\Home\res\css\custom.css" />
-    <Content Include="Views\Home\res\css\font-awesome.min.css" />
-    <Content Include="Views\Home\res\fonts\fontawesome-webfont.svg" />
-    <Content Include="Views\Home\res\images\bg.jpg" />
-    <Content Include="Views\Home\res\images\mapa-demo.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -443,18 +439,10 @@
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Account\ExternalLoginFailure.aspx" />
     <Content Include="Views\Account\ExternalLoginConfirmation.aspx" />
-    <Content Include="Views\Home\About.aspx" />
-    <Content Include="Views\Home\Contact.aspx" />
-    <Content Include="Views\Home\Index_default.aspx" />
-    <Content Include="Views\Shared\Error.aspx" />
-    <Content Include="Views\Shared\_LoginPartial.aspx" />
-    <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\res\fonts\fontawesome-webfont.eot" />
-    <Content Include="Views\Home\res\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Views\Home\res\fonts\fontawesome-webfont.woff" />
-    <Content Include="Views\Home\res\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Views\Home\res\fonts\FontAwesome.otf" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
