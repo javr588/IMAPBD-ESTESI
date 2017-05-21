@@ -8,6 +8,12 @@ namespace IMAPBD
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+
+            bundles.Add(new StyleBundle("~/Content/imapdb").Include(
+                "~/Content/css/custom.css",
+                "~/Content/css/font-awesome.min.css"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
