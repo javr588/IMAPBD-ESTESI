@@ -15,6 +15,7 @@ using Tweetinvi;
 using Google;
 using System.Net.Http;
 using Google.Cloud.Datastore.V1;
+using Google.Protobuf;
 
 namespace IMAPBD.Models
 {
@@ -23,7 +24,7 @@ namespace IMAPBD.Models
         string projectID = "imapbd-load";
         public void GetTweet()
         {
-               QueryPlace();
+               QueryCountry();
 
             Auth.SetUserCredentials("SbeN3F01n4VfL38DyMgFJtCaU", "ZWh95vzbBIBoLc0oUP4HeOSAAJ76i9vYd9rcKsYruVesPkcV9h", "855199954087944193-siJw0Huqbl64Kcyyq3tPxBm75eeS4E7", "oenJfXW32nD2llokrS0ZO3eMND6nB7k36WxRs7VeJK3P6");
             var userTweet = User.GetAuthenticatedUser();
@@ -192,7 +193,7 @@ namespace IMAPBD.Models
             #endregion
         }
 
-        public void InsertPaquete()
+        public void InsertPaquete(string destino, string origen, DateTime fecha_llegada, DateTime fecha_salida, DateTime fecha_venc, string info_gen, string moneda, double costo, string empresa,List<string> actividades)
         {
             #region db access
             ///////////////////////////////////////////// db access ///////////////////////////////////
@@ -221,7 +222,8 @@ namespace IMAPBD.Models
             task.Properties.Add("empresa","viaje");
             task.Properties.Add("origen","Lima");
 
-            for (int i = 0; i < 2; i++) {
+            foreach(string act in actividades)
+            {
                 task.Properties.Add("Tipo"+i.ToString(), "tipo"+i.ToString());
                 task.Properties.Add("OrigenAct"+i.ToString(),"orien"+i.ToString() );
                 task.Properties.Add("DestinoAct"+i.ToString(), "destino"+i.ToString());
@@ -241,20 +243,42 @@ namespace IMAPBD.Models
             #endregion
         }
 
-        public void QueryPlace() {
+        public void QueryCountry() {
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
 
             DatastoreDb db = DatastoreDb.Create(projectID, "");
-            Query query = new Query("Lugar_Tweet")
+            Query query = new Query("Lugar_Tweet")//paqueteList
             {
-                Filter = Filter.Equal("lugar", "Cusco"),
+                Filter = Filter.Equal("pais", "Mexico"),
+              //  DistinctOn = {"lugar" },
                 //Order = { { "bueno", PropertyOrder.Types.Direction.Descending } }
             };
-
           
-            DatastoreQueryResults tasks = db.RunQuery(query);
+          
+          DatastoreQueryResults tasks = db.RunQuery(query);
+           /* List<object> lugarQuery = new List<object>();
+            foreach (Entity entity in db.RunQueryLazily(query))
+            {
+                string title = (string)entity["title"];
+                DateTime published = (DateTime)entity["published"];
+                Console.WriteLine("{0} was published in {1}",title, published);
 
+              
+                task.Properties.Add("bueno", Convert.ToDouble(tweetScore[2]));
+            
+
+                task.Properties.Add("dia", fecha.DayOfWeek.ToString());
+                task.Properties.Add("mes", fecha.Month);
+                task.Properties.Add("anio", fecha.Year);
+
+               
+                    task.Properties.Add("pais", lugar.Country);
+                    task.Properties.Add("lugar", lugar.Name);
+                       
+            
+
+            }*/
         }
     }
 }
