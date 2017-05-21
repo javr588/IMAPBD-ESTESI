@@ -1,0 +1,92 @@
+header {
+    background-image: url(Views/Home/res/images/bg.jpg);
+    background-position: center center;
+    background-size: cover;
+    color: #ffffff;
+    margin-bottom: 50px;
+    border-bottom: 5px solid #3399ff
+}
+
+header .menu {
+    padding-top: 160px;
+    padding-bottom: 20px
+}
+
+header .menu ul {
+    margin: 0;
+    padding: 0
+}
+
+header .menu ul li {
+    display: inline-block;
+    padding: 0 20px;
+    color: #ffffff
+}
+
+header .menu ul li a {
+    color: #ffffff;
+}
+
+header .fa {
+    margin-top: 20px
+}
+
+footer {
+    text-align: center;
+    border-top: 1px solid #dddddd;
+    margin-top: 50px;
+    padding: 50px 0;
+}
+
+.image {
+    display: block;
+}
+
+.image.full {
+    width: 100%;
+    height: auto
+}
+
+.login,
+.registro {
+    padding-top: 100px;
+    padding-bottom: 250px;
+}
+
+.login h1,
+.registro h1 {
+    text-align: center;
+    padding-bottom: 70px
+}
+
+.form-login {
+    max-width: 270px;
+    padding-top: 30px
+}
+
+.botones-registro {
+    padding-top: 30px
+}
+
+.olvidar-contrasena {
+    padding-top: 30px;
+}
+
+.olvidar-contrasena a {
+    color: #ffffff
+}
+
+.registro {
+    text-align: center
+}
+
+.form-registro {
+    max-width: 270px;
+    padding-top: 30px;
+    margin: 0 auto
+}
+
+.detalle .item > div {
+    font-size: 12px;
+    color: #999999
+}
