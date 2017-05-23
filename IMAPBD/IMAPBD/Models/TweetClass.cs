@@ -16,6 +16,8 @@ using Google;
 using System.Net.Http;
 using Google.Cloud.Datastore.V1;
 using Google.Protobuf;
+using IMAPBD.ViewModel.AdminViewModel;
+
 
 namespace IMAPBD.Models
 {
@@ -24,7 +26,7 @@ namespace IMAPBD.Models
         string projectID = "imapbd-load";
         public void GetTweet()
         {
-               QueryCountry();
+#region get tweet
 
             Auth.SetUserCredentials("SbeN3F01n4VfL38DyMgFJtCaU", "ZWh95vzbBIBoLc0oUP4HeOSAAJ76i9vYd9rcKsYruVesPkcV9h", "855199954087944193-siJw0Huqbl64Kcyyq3tPxBm75eeS4E7", "oenJfXW32nD2llokrS0ZO3eMND6nB7k36WxRs7VeJK3P6");
             var userTweet = User.GetAuthenticatedUser();
@@ -142,7 +144,7 @@ namespace IMAPBD.Models
 
                 tweetCount++;
             }
-         
+            #endregion
 
         }
 
@@ -153,7 +155,7 @@ namespace IMAPBD.Models
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
 
-          
+
 
             DatastoreDb db = DatastoreDb.Create(projectID, "");
             string kind = "Lugar_Tweet";
@@ -173,29 +175,65 @@ namespace IMAPBD.Models
             task.Properties.Add("dia", fecha.DayOfWeek.ToString());
             task.Properties.Add("mes", fecha.Month);
             task.Properties.Add("anio", fecha.Year);
-            
-            if(lugar == null){
+
+            if (lugar == null)
+            {
                 task.Properties.Add("lugar", "");
                 task.Properties.Add("pais", "");
-            }else
+            }
+            else
             {
                 task.Properties.Add("pais", lugar.Country);
                 task.Properties.Add("lugar", lugar.Name);
-            }            
-            
-            
+            }
+
+
             using (DatastoreTransaction transaction = db.BeginTransaction())
             {
-                transaction.Upsert(task); 
+                transaction.Upsert(task);
                 transaction.Commit();
             }
             ///////////////////////////////////////////// db access ///////////////////////////////////
             #endregion
         }
 
-        public void InsertPaquete(string destino, string origen, DateTime fecha_llegada, DateTime fecha_salida, DateTime fecha_venc, string info_gen, string moneda, double costo, string empresa,List<string> actividades)
+        public void InsertActividad(List<ActividadesModels> actividades, string llavePaquete) 
         {
-            #region db access
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
+
+
+            foreach (ActividadesModels act in actividades)
+            {
+                DatastoreDb dbAct = DatastoreDb.Create(projectID, "");
+                string kindAct = "actividadList";
+
+                KeyFactory keyFactoryAct = dbAct.CreateKeyFactory(kindAct);
+                Key keyAct = keyFactoryAct.CreateIncompleteKey();
+
+                Entity taskAct = new Entity();
+                taskAct.Key = keyAct;
+
+                taskAct.Properties.Add("Tipo", act.Tipo);
+                taskAct.Properties.Add("OrigenAct", act.Origen);
+                taskAct.Properties.Add("DestinoAct", act.Destino);
+                taskAct.Properties.Add("FechaSal", act.FechaSalida);
+                taskAct.Properties.Add("FechaLleg", act.FechaLlegada);
+                taskAct.Properties.Add("costo", act.Costo.ToString());
+                taskAct.Properties.Add("moneda", act.Moneda);
+                taskAct.Properties.Add("keyPaquete", llavePaquete);
+
+                using (DatastoreTransaction transactionAct = dbAct.BeginTransaction())
+                {
+                    transactionAct.Upsert(taskAct);
+                    transactionAct.Commit();
+                }
+            }
+        }
+
+        public void InsertPaquete(string destino, string origen, DateTime fecha_llegada, DateTime fecha_salida, DateTime fecha_venc, string info_gen, string moneda, double costo, string empresa, List<ActividadesModels> actividades)
+        {
+            #region Insertar Paquete
             ///////////////////////////////////////////// db access ///////////////////////////////////
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
@@ -210,75 +248,209 @@ namespace IMAPBD.Models
 
             Entity task = new Entity();
             task.Key = key;
-          
+
             //paquete
-            task.Properties.Add("destino","Trujillo");
-            task.Properties.Add("fecha_llegada",DateTime.Now);
-            task.Properties.Add("fecha_salida",DateTime.Now);
-            task.Properties.Add("fecha_venc",DateTime.Now);
-            task.Properties.Add("info_general","info genral del paquete");
-            task.Properties.Add("moneda","GBP");
-            task.Properties.Add("costo", Convert.ToDouble(15.5));
-            task.Properties.Add("empresa","viaje");
-            task.Properties.Add("origen","Lima");
+            task.Properties.Add("destino", destino);
+            task.Properties.Add("fecha_llegada", fecha_llegada);
+            task.Properties.Add("fecha_salida", fecha_salida);
+            task.Properties.Add("fecha_venc", fecha_venc);
+            task.Properties.Add("info_general", info_gen);
+            task.Properties.Add("moneda", moneda);
+            task.Properties.Add("costo", costo);
+            task.Properties.Add("empresa", empresa);
+            task.Properties.Add("origen", destino);
 
-            foreach(string act in actividades)
-            {
-                task.Properties.Add("Tipo"+i.ToString(), "tipo"+i.ToString());
-                task.Properties.Add("OrigenAct"+i.ToString(),"orien"+i.ToString() );
-                task.Properties.Add("DestinoAct"+i.ToString(), "destino"+i.ToString());
-                task.Properties.Add("FechaSal"+i.ToString(), "fecsal"+i.ToString());
-                task.Properties.Add("FechaLleg"+i.ToString(), "fecll"+i.ToString());
-                task.Properties.Add("costo" + i.ToString(), i);
-                task.Properties.Add("moneda" + i.ToString(), "moneda"+i.ToString());
-            
-            }
-
-                using (DatastoreTransaction transaction = db.BeginTransaction())
-                {
-                    transaction.Upsert(task);
-                    transaction.Commit();
-                }
+            task.Key = db.Upsert(task);
+            string llavePaquete = task.Key.Path[0].Id.ToString();
+                   
+            InsertActividad(actividades,llavePaquete);
+                      
             ///////////////////////////////////////////// db access ///////////////////////////////////
             #endregion
         }
 
-        public void QueryCountry() {
+        public IEnumerable<LugarCalModel> QueryCountry(string pais)
+        {
+            #region query country
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
 
             DatastoreDb db = DatastoreDb.Create(projectID, "");
+
+
+
             Query query = new Query("Lugar_Tweet")//paqueteList
             {
-                Filter = Filter.Equal("pais", "Mexico"),
-              //  DistinctOn = {"lugar" },
+                Filter = Filter.Equal("pais", pais),
+
                 //Order = { { "bueno", PropertyOrder.Types.Direction.Descending } }
             };
-          
-          
-          DatastoreQueryResults tasks = db.RunQuery(query);
-           /* List<object> lugarQuery = new List<object>();
+           
+
+
+            List<LugarCalModel> NoRep = new List<LugarCalModel>();
             foreach (Entity entity in db.RunQueryLazily(query))
             {
-                string title = (string)entity["title"];
-                DateTime published = (DateTime)entity["published"];
-                Console.WriteLine("{0} was published in {1}",title, published);
+                LugarCalModel placeCal = new LugarCalModel();
+                placeCal.Año = (int)entity["anio"];
+                placeCal.bueno = (double)entity["bueno"];
+                placeCal.dia = (string)entity["dia"];
+                placeCal.lugar = (string)entity["lugar"];
+                placeCal.malo = (double)entity["malo"];
+                placeCal.mes = (int)entity["mes"];
+                placeCal.pais = (string)entity["pais"];
+                placeCal.regular = (double)entity["regular"];
+                placeCal.tedioso = (double)entity["tedioso"];
+                NoRep.Add(placeCal);
+            }
 
-              
-                task.Properties.Add("bueno", Convert.ToDouble(tweetScore[2]));
+            IEnumerable<LugarCalModel> NoMoreRep = NoRep.Distinct();
+
+            foreach (LugarCalModel place in NoMoreRep)
+            {
+                double calsum = 0;
+                int cont = 0;
+                foreach (LugarCalModel placeSearh in NoRep)
+                {
+                    if (place.lugar == placeSearh.lugar)
+                    {
+                        calsum += placeSearh.bueno;
+                        cont++;
+                    }
+
+                }
+                if (cont > 0)
+                    place.bueno = calsum / cont;
+            }
+            return NoMoreRep;
+            #endregion
+        }
+
+        public IEnumerable<CiudadDiaModels> QueryCity(string ciudad)
+        {
+            #region query city
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
+
+            DatastoreDb db = DatastoreDb.Create(projectID, "");
+
+            Query query = new Query("Lugar_Tweet")//paqueteList
+            {
+                Filter = Filter.Equal("lugar", ciudad),
+            };
             
+            List<CiudadDiaModels> NoRep = new List<CiudadDiaModels>();
+            foreach (Entity entity in db.RunQueryLazily(query))
+            {
+                CiudadDiaModels placeCal = new CiudadDiaModels();
+                placeCal.Año = (int)entity["anio"];
+                placeCal.bueno = (double)entity["bueno"];
+                placeCal.dia = (string)entity["dia"];
+                placeCal.lugar = (string)entity["lugar"];
+                placeCal.malo = (double)entity["malo"];
+                placeCal.mes = (int)entity["mes"];
+                placeCal.pais = (string)entity["pais"];
+                placeCal.regular = (double)entity["regular"];
+                placeCal.tedioso = (double)entity["tedioso"];
+                NoRep.Add(placeCal);
+            }
 
-                task.Properties.Add("dia", fecha.DayOfWeek.ToString());
-                task.Properties.Add("mes", fecha.Month);
-                task.Properties.Add("anio", fecha.Year);
+            IEnumerable<CiudadDiaModels> NoMoreRep = NoRep.Distinct();
 
+            foreach (CiudadDiaModels place in NoMoreRep)
+            {
+                double calsum = 0;
+                int cont = 0;
+                foreach (CiudadDiaModels placeSearh in NoRep)
+                {
+                    if (place.lugar == placeSearh.lugar)
+                    {
+                        calsum += placeSearh.bueno;
+                        cont++;
+                    }
+
+                }
+                if (cont > 0)
+                    place.bueno = calsum / cont;
+            }
+            return NoMoreRep;
+            #endregion
+        }
+        public List<ActividadesModels> QueryActividad(string paqueteID) {
+
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
+
+            DatastoreDb db = DatastoreDb.Create(projectID, "");
+
+            Query query = new Query("actividadList")
+            {
+                Filter = Filter.Equal("keyPaquete", paqueteID),
+
+            };
+
+            List<ActividadesModels> actQuery = new List<ActividadesModels>();
+            foreach (Entity entity in db.RunQueryLazily(query))
+            {
+
+                ActividadesModels actTemp = new ActividadesModels();
+                actTemp.Destino = (string)entity["DestinoAct"];
+               // string fechaTemp = fechaTemp.ToShortDateString();
+                actTemp.FechaLlegada = (string)entity["FechaLleg"]; 
+                actTemp.Origen = (string)entity["OrigenAct"];
+                actTemp.Tipo = (string)entity["Tipo"];
+                string costoT = (string)entity["costo"];
+                actTemp.Costo = Convert.ToDecimal(costoT);
+                //fechaTemp = fechaTemp.ToShortDateString();
+                actTemp.FechaSalida = (string)entity["FechaSal"]; 
+                actTemp.Moneda = (string)entity["moneda"];
+
+                actQuery.Add(actTemp);
+            }
+            return actQuery;
+        }
+        
+        public  List<CrearPaquetesViewModel> QueryPaquete(string destino) 
+        {
+            
+            string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
+
+            DatastoreDb db = DatastoreDb.Create(projectID, "");
+
+            Query query = new Query("paqueteList")
+            {
+                Filter = Filter.Equal("destino", destino),
+                
+            };
+           // query.Order.Add("fecha_venc");
+            
+          List<CrearPaquetesViewModel> paqueteQuery = new List<CrearPaquetesViewModel>();
+           foreach (Entity entity in db.RunQueryLazily(query))
+            {
                
-                    task.Properties.Add("pais", lugar.Country);
-                    task.Properties.Add("lugar", lugar.Name);
-                       
-            
+                CrearPaquetesViewModel paqueteTemp = new CrearPaquetesViewModel();
+                double costoT = (double)entity["costo"];
+                paqueteTemp.Costo = Convert.ToDecimal(costoT);
+               paqueteTemp.Destino = (string)entity["destino"];
+               DateTime fechaTemp = (DateTime)entity["fecha_llegada"];
+               paqueteTemp.FechaLlegada = fechaTemp.ToShortDateString();
+               fechaTemp = (DateTime)entity["fecha_salida"];
+               paqueteTemp.FechaSalida = fechaTemp.ToShortDateString();
+               fechaTemp = (DateTime)entity["fecha_venc"];
+               paqueteTemp.FechaVencimiento = fechaTemp.ToShortDateString();
+                paqueteTemp.InformacionGeneral = (string)entity["info_general"];
+                paqueteTemp.Moneda= (string)entity["moneda"];
+                paqueteTemp.Origen = (string)entity["origen"];
+                paqueteTemp.Empresa = (string)entity["empresa"];
+                paqueteTemp.LstActividades = new List<ActividadesModels>();
 
-            }*/
+               paqueteTemp.LstActividades = QueryActividad(entity.Key.Path[0].Id.ToString());
+
+                paqueteQuery.Add(paqueteTemp);
+            }
+
+           return paqueteQuery;
         }
     }
 }

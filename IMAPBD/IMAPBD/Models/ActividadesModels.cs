@@ -13,5 +13,6 @@ namespace IMAPBD.Models
         public String FechaSalida { get; set; }
         public String FechaLlegada { get; set; }
         public Decimal Costo { get; set; }
+        public string Moneda { get; set; }
     }
 }

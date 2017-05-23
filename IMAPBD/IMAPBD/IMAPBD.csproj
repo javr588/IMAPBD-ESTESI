@@ -314,14 +314,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-<<<<<<< HEAD
-    <Compile Include="Controllers\Default1Controller.cs" />
-=======
     <Compile Include="Controllers\AdminController.cs" />
->>>>>>> 2c75bb048b95a33efea6db3209709a3b2c7a3b6d
+    <Compile Include="Controllers\Default1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Load_TweetController.cs" />
     <Compile Include="Models\ActividadesModels.cs" />
+    <Compile Include="Models\CiudadDiaModels.cs" />
+    <Compile Include="Models\LugarCalModel.cs" />
     <Compile Include="Models\TweetClass.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
