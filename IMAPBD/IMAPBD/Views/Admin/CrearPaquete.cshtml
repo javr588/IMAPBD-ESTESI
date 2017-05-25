@@ -73,7 +73,7 @@
     <div class="col-md-7 col-xs-12">
         <h3>Actividades</h3>
         <div class="table-responsive">
-            <table class="table table-condensed table-hover">
+            <table id="actividades_agregadas" class="table table-condensed table-hover">
                 <thead>
                     <tr>
                         <td>Tipo</td>
@@ -145,9 +145,8 @@
 
                     </div>
 
-
                     <div class="form-group">
-                        <button type="submit" id="btnEnviar" class="btn btn-primary pull-right">Agregar actividad</button>
+                        <button  id="btnEnviar" onclick="agregarElemento()" class="btn btn-primary pull-right">Agregar actividad</button>
                     </div>
                 </div>
 
@@ -163,8 +162,10 @@
 @section Scripts{
     
     <script>
-        $("#btnEnviar").onclick(function () {
-            alert("Holaaa");
-        })
+
+        function agregarElemento()
+        {
+            $('#actividades_agregadas > tbody:last-child').append('<tr><td>my data</td><td>more data</td><td>more data</td><td>more data</td><td>more data</td><td>more data</td></tr>');
+        }
     </script>
 }
