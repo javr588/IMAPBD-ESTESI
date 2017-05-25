@@ -316,9 +316,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Default1Controller.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Default1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Load_TweetController.cs" />
     <Compile Include="Models\ActividadesModels.cs" />
+    <Compile Include="Models\CiudadDiaModels.cs" />
+    <Compile Include="Models\LugarCalModel.cs" />
     <Compile Include="Models\TweetClass.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
