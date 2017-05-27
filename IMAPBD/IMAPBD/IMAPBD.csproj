@@ -445,6 +445,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\CrearPaquete.cshtml" />
+    <Content Include="Views\Home\Index_User.cshtml" />
+    <Content Include="Views\Home\Lugares.cshtml" />
+    <Content Include="Views\Admin\Registro_Empresa.cshtml" />
+    <Content Include="Views\Admin\Registro_User.cshtml" />
+    <Content Include="Views\Home\Ver_Paquete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

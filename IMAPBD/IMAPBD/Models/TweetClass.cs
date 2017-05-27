@@ -26,7 +26,7 @@ namespace IMAPBD.Models
         string projectID = "imapbd-load";
         public void GetTweet()
         {
-#region get tweet
+            #region get tweet
 
             Auth.SetUserCredentials("SbeN3F01n4VfL38DyMgFJtCaU", "ZWh95vzbBIBoLc0oUP4HeOSAAJ76i9vYd9rcKsYruVesPkcV9h", "855199954087944193-siJw0Huqbl64Kcyyq3tPxBm75eeS4E7", "oenJfXW32nD2llokrS0ZO3eMND6nB7k36WxRs7VeJK3P6");
             var userTweet = User.GetAuthenticatedUser();
@@ -197,7 +197,7 @@ namespace IMAPBD.Models
             #endregion
         }
 
-        public void InsertActividad(List<ActividadesModels> actividades, string llavePaquete) 
+        public void InsertActividad(List<ActividadesModels> actividades, string llavePaquete)
         {
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
@@ -250,29 +250,6 @@ namespace IMAPBD.Models
             task.Key = key;
 
             //paquete
-<<<<<<< HEAD
-            task.Properties.Add("destino","Trujillo");
-            task.Properties.Add("fecha_llegada",DateTime.Now);
-            task.Properties.Add("fecha_salida",DateTime.Now);
-            task.Properties.Add("fecha_venc",DateTime.Now);
-            task.Properties.Add("info_general","info genral del paquete");
-            task.Properties.Add("moneda","GBP");
-            task.Properties.Add("costo", Convert.ToDouble(15.5));
-            task.Properties.Add("empresa","viaje");
-            task.Properties.Add("origen","Lima");
-
-            //foreach(string act in actividades)
-            //{
-            //    task.Properties.Add("Tipo"+i.ToString(), "tipo"+i.ToString());
-            //    task.Properties.Add("OrigenAct"+i.ToString(),"orien"+i.ToString() );
-            //    task.Properties.Add("DestinoAct"+i.ToString(), "destino"+i.ToString());
-            //    task.Properties.Add("FechaSal"+i.ToString(), "fecsal"+i.ToString());
-            //    task.Properties.Add("FechaLleg"+i.ToString(), "fecll"+i.ToString());
-            //    task.Properties.Add("costo" + i.ToString(), i);
-            //    task.Properties.Add("moneda" + i.ToString(), "moneda"+i.ToString());
-            
-            //}
-=======
             task.Properties.Add("destino", destino);
             task.Properties.Add("fecha_llegada", fecha_llegada);
             task.Properties.Add("fecha_salida", fecha_salida);
@@ -285,9 +262,9 @@ namespace IMAPBD.Models
 
             task.Key = db.Upsert(task);
             string llavePaquete = task.Key.Path[0].Id.ToString();
-                   
-            InsertActividad(actividades,llavePaquete);
-                      
+
+            InsertActividad(actividades, llavePaquete);
+
             ///////////////////////////////////////////// db access ///////////////////////////////////
             #endregion
         }
@@ -308,7 +285,7 @@ namespace IMAPBD.Models
 
                 //Order = { { "bueno", PropertyOrder.Types.Direction.Descending } }
             };
-           
+
 
 
             List<LugarCalModel> NoRep = new List<LugarCalModel>();
@@ -326,7 +303,6 @@ namespace IMAPBD.Models
                 placeCal.tedioso = (double)entity["tedioso"];
                 NoRep.Add(placeCal);
             }
->>>>>>> c9eda6fa5ede79551bc7bbd10a5226db6d398a7f
 
             IEnumerable<LugarCalModel> NoMoreRep = NoRep.Distinct();
 
@@ -362,7 +338,7 @@ namespace IMAPBD.Models
             {
                 Filter = Filter.Equal("lugar", ciudad),
             };
-            
+
             List<CiudadDiaModels> NoRep = new List<CiudadDiaModels>();
             foreach (Entity entity in db.RunQueryLazily(query))
             {
@@ -400,7 +376,8 @@ namespace IMAPBD.Models
             return NoMoreRep;
             #endregion
         }
-        public List<ActividadesModels> QueryActividad(string paqueteID) {
+        public List<ActividadesModels> QueryActividad(string paqueteID)
+        {
 
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
@@ -419,24 +396,24 @@ namespace IMAPBD.Models
 
                 ActividadesModels actTemp = new ActividadesModels();
                 actTemp.Destino = (string)entity["DestinoAct"];
-               // string fechaTemp = fechaTemp.ToShortDateString();
-                actTemp.FechaLlegada = (string)entity["FechaLleg"]; 
+                // string fechaTemp = fechaTemp.ToShortDateString();
+                actTemp.FechaLlegada = (string)entity["FechaLleg"];
                 actTemp.Origen = (string)entity["OrigenAct"];
                 actTemp.Tipo = (string)entity["Tipo"];
                 string costoT = (string)entity["costo"];
                 actTemp.Costo = Convert.ToDecimal(costoT);
                 //fechaTemp = fechaTemp.ToShortDateString();
-                actTemp.FechaSalida = (string)entity["FechaSal"]; 
+                actTemp.FechaSalida = (string)entity["FechaSal"];
                 actTemp.Moneda = (string)entity["moneda"];
 
                 actQuery.Add(actTemp);
             }
             return actQuery;
         }
-        
-        public  List<CrearPaquetesViewModel> QueryPaquete(string destino) 
+
+        public List<CrearPaquetesViewModel> QueryPaquete(string destino)
         {
-            
+
             string credential_path = HttpContext.Current.Server.MapPath(@"~\OAuth\IMAPBD - Load-db-access.json");
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
 
@@ -445,36 +422,36 @@ namespace IMAPBD.Models
             Query query = new Query("paqueteList")
             {
                 Filter = Filter.Equal("destino", destino),
-                
+
             };
-           // query.Order.Add("fecha_venc");
-            
-          List<CrearPaquetesViewModel> paqueteQuery = new List<CrearPaquetesViewModel>();
-           foreach (Entity entity in db.RunQueryLazily(query))
+            // query.Order.Add("fecha_venc");
+
+            List<CrearPaquetesViewModel> paqueteQuery = new List<CrearPaquetesViewModel>();
+            foreach (Entity entity in db.RunQueryLazily(query))
             {
-               
+
                 CrearPaquetesViewModel paqueteTemp = new CrearPaquetesViewModel();
                 double costoT = (double)entity["costo"];
                 paqueteTemp.Costo = Convert.ToDecimal(costoT);
-               paqueteTemp.Destino = (string)entity["destino"];
-               DateTime fechaTemp = (DateTime)entity["fecha_llegada"];
-               paqueteTemp.FechaLlegada = fechaTemp.ToShortDateString();
-               fechaTemp = (DateTime)entity["fecha_salida"];
-               paqueteTemp.FechaSalida = fechaTemp.ToShortDateString();
-               fechaTemp = (DateTime)entity["fecha_venc"];
-               paqueteTemp.FechaVencimiento = fechaTemp.ToShortDateString();
+                paqueteTemp.Destino = (string)entity["destino"];
+                DateTime fechaTemp = (DateTime)entity["fecha_llegada"];
+                paqueteTemp.FechaLlegada = fechaTemp.ToShortDateString();
+                fechaTemp = (DateTime)entity["fecha_salida"];
+                paqueteTemp.FechaSalida = fechaTemp.ToShortDateString();
+                fechaTemp = (DateTime)entity["fecha_venc"];
+                paqueteTemp.FechaVencimiento = fechaTemp.ToShortDateString();
                 paqueteTemp.InformacionGeneral = (string)entity["info_general"];
-                paqueteTemp.Moneda= (string)entity["moneda"];
+                paqueteTemp.Moneda = (string)entity["moneda"];
                 paqueteTemp.Origen = (string)entity["origen"];
                 paqueteTemp.Empresa = (string)entity["empresa"];
                 paqueteTemp.LstActividades = new List<ActividadesModels>();
 
-               paqueteTemp.LstActividades = QueryActividad(entity.Key.Path[0].Id.ToString());
+                paqueteTemp.LstActividades = QueryActividad(entity.Key.Path[0].Id.ToString());
 
                 paqueteQuery.Add(paqueteTemp);
             }
 
-           return paqueteQuery;
+            return paqueteQuery;
         }
     }
 }
