@@ -34,9 +34,9 @@
 
                 <div class="col-md-6 col-xs-12">
                     <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="crear-paquete.html">Crear paquetes</a></li>
-                        <li><a href="lugares.html">Lugares</a></li>
+                        <li>@Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "page-scroll" })</li>
+                        <li>@Html.ActionLink("Crear Paquete", "CrearPaquete", "Home", null, new { @class = "page-scroll" })</a></li>
+                        <li><a href="Views/Home/Lugares.cshtml">Lugares</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-xs-12">
