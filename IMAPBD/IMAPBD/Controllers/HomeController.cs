@@ -4,15 +4,52 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using IMAPBD.ViewModel;
+using IMAPBD.Models;
+using IMAPBD.ViewModel.AdminViewModel;
+
 namespace IMAPBD.Controllers
 {
     public class HomeController : Controller
     {
+        public string user="";
+        public TweetClass obj = new TweetClass();
+        public ActionResult Funciones() {
+            #region Insertar Paquete
+            /*  
+            List<ActividadesModels> act = new List<ActividadesModels>();
+            ActividadesModels actemp = new ActividadesModels();
+            actemp.Tipo="inserta";
+            actemp.Origen="la";
+            actemp.Destino="maldita";
+            actemp.FechaSalida = DateTime.Now.ToShortDateString();
+            actemp.FechaLlegada = DateTime.Now.ToShortDateString();
+            actemp.Costo = 6.7M;
+            actemp.Moneda ="actividad";
+
+            act.Add(actemp);
+            obj.InsertPaquete("in", "girum", DateTime.Now.ToUniversalTime(), DateTime.Now.ToUniversalTime(), DateTime.Now.ToUniversalTime(),"imus","nocte",6.6,".",act);
+           */
+            #endregion
+
+            #region Query Lista Pais: Retorna todas las ciudades calificadas por pais de busqueda
+            //  var listaPais = obj.QueryCountry("Italy");
+            #endregion
+
+            #region Query Lista cuidad: Retorna todos los dias calificados por ciudad de busqueda
+             //  var listaCuidad = obj.QueryCity("Florence");
+            #endregion
+
+            #region Query Paquete: Retorna todos los paquetes por destino
+            //var listaPaquete = obj.QueryPaquete("in");
+            #endregion
+            return View();
+        }
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            if (!string.Equals(user,"admin"))
+                return View();
+            else
+                return View("~/Views/Home/Index_User.cshtml");
         }
 
 
@@ -36,30 +73,66 @@ namespace IMAPBD.Controllers
             return View();
         }
 
-        public ActionResult Lugares()
+         [HttpPost]
+        public ActionResult Lugares(BusquedaViewModel lugar)
         {
+            #region Query Lista cuidad: Retorna todos los dias calificados por ciudad de busqueda
+            var listaCuidad = obj.QueryCity(lugar.Busqueda);
+            #endregion
             return View();
         }
 
+        [HttpPost]
+         public ActionResult Paquetes(BusquedaViewModel destino)
+        {
+            #region Query Paquete: Retorna todos los paquetes por destino
+            var listaPaquete = obj.QueryPaquete(destino.Busqueda);
+            #endregion
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Paises(BusquedaViewModel pais)
+        {
+            #region Query Lista Pais: Retorna todas las ciudades calificadas por pais de busqueda
+            var listaPais = obj.QueryCountry(pais.Busqueda);
+            #endregion
+            return View();
+        }
         public ActionResult Ver_Paquete()
         {
             return View();
         }
 
-        public ActionResult CrearPaquete()
+        public ActionResult CrearPaquete(CrearPaquetesViewModel Paquete)
         {
-            return View();
+             obj.InsertPaquete(Paquete.Destino, Paquete.Origen,Convert.ToDateTime(Paquete.FechaLlegada).ToUniversalTime(), Convert.ToDateTime(Paquete.FechaSalida).ToUniversalTime(), Convert.ToDateTime(Paquete.FechaVencimiento).ToUniversalTime() ,Paquete.InformacionGeneral, Paquete.Moneda, Convert.ToDouble(Paquete.Costo), Paquete.Empresa, Paquete.LstActividades);
+
+            return View("~/Views/Admin/CrearPaquete.cshtml");
         }
 
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-            if(model.User.Equals("admin") && model.User.Equals("1234"))
+            if (model.User != null)
             {
-                RedirectToAction("Index", "Admin");
-            }
+                user = model.User;
+                if (model.User.Equals("admin") && model.Password.Equals("1234"))
+                {
+                    return View("~/Views/Home/Index.cshtml");
+                }
+
+                if (model.User.Equals("user") && model.Password.Equals("1234"))
+                {
+                    return View("~/Views/Home/Index_User.cshtml");
+                }
+            } 
             return View();
         }
+
+       
+        
+       
     }
 }
 

@@ -3,4 +3,418 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #floating-panel {
+        background-color: #fff;
+        border: 1px solid #999;
+        left: 25%;
+        padding: 5px;
+        position: absolute;
+        top: 10px;
+        z-index: 5;
+    }
+</style>
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldHigh.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/chalk.js"></script>
+<style>
+    body {
+    }
+
+    #chartdiv {
+        width: 100%;
+        height: 250px;
+    }
+</style>
+
+<script>
+        var map = AmCharts.makeChart("chartdiv", {
+            "type": "map",
+            "theme": "chalk",
+            "dataProvider": {
+                "map": "worldHigh",
+                "zoomLevel": 3.5,
+                "zoomLongitude": 10,
+                "zoomLatitude": 52,
+                "areas": [{
+                    "title": "Austria",
+                    "id": "AT",
+                    "color": "#67b7dc",
+                    "customData": "1995",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Ireland",
+                    "id": "IE",
+                    "color": "#67b7dc",
+                    "customData": "1973",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Denmark",
+                    "id": "DK",
+                    "color": "#67b7dc",
+                    "customData": "1973",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Finland",
+                    "id": "FI",
+                    "color": "#67b7dc",
+                    "customData": "1995",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Sweden",
+                    "id": "SE",
+                    "color": "#67b7dc",
+                    "customData": "1995",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Great Britain",
+                    "id": "GB",
+                    "color": "#67b7dc",
+                    "customData": "1973",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Italy",
+                    "id": "IT",
+                    "color": "#67b7dc",
+                    "customData": "Playas",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "France",
+                    "id": "FR",
+                    "color": "#67b7dc",
+                    "customData": "Playas",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Spain",
+                    "id": "ES",
+                    "color": "#67b7dc",
+                    "customData": "1986",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Greece",
+                    "id": "GR",
+                    "color": "#67b7dc",
+                    "customData": "1981",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Germany",
+                    "id": "DE",
+                    "color": "#67b7dc",
+                    "customData": "Playas",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Belgium",
+                    "id": "BE",
+                    "color": "#67b7dc",
+                    "customData": "Playas",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Luxembourg",
+                    "id": "LU",
+                    "color": "#67b7dc",
+                    "customData": "Playas",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Netherlands",
+                    "id": "NL",
+                    "color": "#67b7dc",
+                    "customData": "Playas",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Portugal",
+                    "id": "PT",
+                    "color": "#67b7dc",
+                    "customData": "1986",
+                    "groupId": "beforeTreking"
+                }, {
+                    "title": "Lithuania",
+                    "id": "LT",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Latvia",
+                    "id": "LV",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Czech Republic ",
+                    "id": "CZ",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Slovakia",
+                    "id": "SK",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Slovenia",
+                    "id": "SI",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Estonia",
+                    "id": "EE",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Hungary",
+                    "id": "HU",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Cyprus",
+                    "id": "CY",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Malta",
+                    "id": "MT",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Poland",
+                    "id": "PL",
+                    "color": "#ebdb8b",
+                    "customData": "Treking",
+                    "groupId": "Treking"
+                }, {
+                    "title": "Romania",
+                    "id": "RO",
+                    "color": "#83c2ba",
+                    "customData": "Turismo de aventura",
+                    "groupId": "Turismo de aventura"
+                }, {
+                    "title": "Bulgaria",
+                    "id": "BG",
+                    "color": "#83c2ba",
+                    "customData": "Turismo de aventura",
+                    "groupId": "Turismo de aventura"
+                }, {
+                    "title": "Croatia",
+                    "id": "HR",
+                    "color": "#db8383",
+                    "customData": "2013",
+                    "groupId": "2013"
+                }
+                ]
+            },
+
+            "areasSettings": {
+                "rollOverOutlineColor": "#FFFFFF",
+                "rollOverColor": "#CC0000",
+                "alpha": 0.8,
+                "unlistedAreasAlpha": 0.1,
+                "balloonText": "El destino turistico mas buscado de [[title]] es: [[customData]]"
+            },
+
+
+            "legend": {
+                "width": "100%",
+                "marginRight": 27,
+                "marginLeft": 27,
+                "equalWidths": false,
+                "backgroundAlpha": 0.5,
+                "backgroundColor": "#000000",
+                "borderColor": "#ffffff",
+                "borderAlpha": 1,
+                "top": 250,
+                "left": 0,
+                "horizontalGap": 10,
+                "data": [{
+                    "title": "Playas",
+                    "color": "#67b7dc"
+                }, {
+                    "title": "Treking",
+                    "color": "#ebdb8b"
+                }, {
+                    "title": "Turismo de aventura",
+                    "color": "#83c2ba"
+                }, {
+                    "title": "Museo",
+                    "color": "#db8383"
+                }]
+            },
+            "export": {
+                "enabled": true
+            }
+
+        });
+</script>
+
+<div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="row clearfix">
+
+                <div class="col-md-12">
+                    <h1>Heatmap</h1>
+                    <div id="chartdiv"></div>
+                    <br />
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+                <h2>Paquetes publicados</h2>
+                <!-- On rows -->
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+
+                        <!--<tr>
+                        <td class="active">Cotizaciones</td>
+                        <td class="success">Origen</td>
+                        <td class="warning">Destino</td>
+                        <td class="danger">estatus</td>
+                        </tr>-->
+                        <tr>
+                            <td>Cotizaciones</td>
+                            <td>Origen</td>
+                            <td>Destino</td>
+                            <td>Estatus</td>
+                            <td>Valoración</td>
+                            <td>Vencimiento</td>
+                            <td>Acción</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Default</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" }) <td>
+                        </tr>
+                        <tr class="success">
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>App roved</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Default</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        <tr class="active">
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Declined</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Default</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Default</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Pending</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        <tr class="danger">
+                            <td>1</td>
+                            <td>Origen 1</td>
+                            <td>Destino 2</td>
+                            <td>Call in to confirm</td>
+                            <td>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
+                            </td>
+                            <td>03-03-2017</td>
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

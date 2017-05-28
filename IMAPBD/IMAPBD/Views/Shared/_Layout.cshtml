@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@model IMAPBD.ViewModel.BusquedaViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -26,7 +31,14 @@
             <div class="row">
 
                 <div class="col-xs-8"><h1>IMAPDB</h1></div>
-                <div class="col-xs-4"><i class="fa fa-sign-out fa-2x pull-right" aria-hidden="true"></i></div>
+                <div class="col-xs-4">
+                    @using (Html.BeginForm("Login", "Home"))
+                    {
+                        <input type="submit" value="Logout" class="btn btn-warning" />
+
+                    }
+
+                </div>
 
             </div>
 
@@ -36,18 +48,56 @@
                     <ul>
                         <li>@Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "page-scroll" })</li>
                         <li>@Html.ActionLink("Crear Paquete", "CrearPaquete", "Home", null, new { @class = "page-scroll" })</a></li>
-                        <li><a href="Views/Home/Lugares.cshtml">Lugares</a></li>
+                        <li>@Html.ActionLink("Lugares", "Lugares", "Home", null, new { @class = "page-scroll" })</li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <div class="pull-right">
-                        <form class="form-inline busqueda">
 
-                            <div class="form-group ">
-                                <input type="search" class="form-control" id="inputBuscar" placeholder="Buscar paquete">
+
+                        @using (Html.BeginForm("Lugares", "Home", FormMethod.Post))
+                        {
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Busqueda, new { @class = "form-control", placeholder = "Busqueda" })
                             </div>
-                            <button type="submit" class="btn btn-primary">Buscar</button>
-                        </form>
+
+                            <div class="clearfix">
+
+                                <button type="submit" class="btn btn-primary pull-right">Por Ciudad</button>
+                            </div>
+
+                        }
+
+                        @using (Html.BeginForm("Paquetes", "Home", FormMethod.Post))
+                        {
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Busqueda, new { @class = "form-control", placeholder = "Busqueda" })
+                            </div>
+
+                            <div class="clearfix">
+
+                                <button type="submit" class="btn btn-primary pull-right">Por Paquete</button>
+                            </div>
+
+                        }
+                        @using (Html.BeginForm("Paises", "Home", FormMethod.Post))
+                        {
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Busqueda, new { @class = "form-control", placeholder = "Busqueda" })
+                            </div>
+
+                            <div class="clearfix">
+
+                                <button type="submit" class="btn btn-primary pull-right">Por Pais</button>
+                            </div>
+
+                        }
+
+
+
                     </div>
 
                 </div>
@@ -62,7 +112,7 @@
 
         <div class="container">
 
-        @RenderBody()
+            @RenderBody()
 
         </div>
 

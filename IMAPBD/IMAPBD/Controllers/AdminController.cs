@@ -23,12 +23,12 @@ namespace IMAPBD.Controllers
 
         public ActionResult Registro_Empresa()
         {
-            return View();
+            return View("~/Views/Admin/Registro_Empresa.cshtml");
         }
 
         public ActionResult Registro_User()
         {
-            return View();
+            return View("~/Views/Admin/Registro_User.cshtml");
         }
 
         public ActionResult Index_User()

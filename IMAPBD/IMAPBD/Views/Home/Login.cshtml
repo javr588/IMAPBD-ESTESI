@@ -64,8 +64,21 @@
                     <h2>¿Nuevo usuario?</h2>
                     Puedes registrarte según tu perfil
                     <div class="botones-registro">
-                        <a href="registro-usuario.html" class="btn btn-warning">Usuario</a>
-                        <a href="registro-empresa.html" class="btn btn-success">Empresa</a>
+                        
+                        @using (Html.BeginForm("Registro_User", "Admin"))
+                        {
+
+                            <input type="submit" value="Usuario" class="btn btn-warning" />
+
+                        }  
+                      
+
+                        @using (Html.BeginForm("Registro_Empresa", "Admin"))
+                        {
+
+                            <input type="submit" value="Empresa" class="btn btn-success" />
+
+                        }  
                     </div>
                 </div>
 
