@@ -1,8 +1,4 @@
-﻿@model IMAPBD.ViewModel.BusquedaViewModel
-@{
-    Layout = null;
-}
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,11 +48,13 @@
             </div>
 
             <div class="row">
-                @using (Html.BeginForm("Lugares", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Lugares", "Home", FormMethod.Post))
                 {
 
                     <div class="col-sm-2">
-                        @Html.TextBoxFor(x => x.Busqueda, new { @class = "form-control", placeholder = "Busqueda" })
+                       <!-- Html.TextBoxFor(x => x.Busqueda, new { class = "form-control", placeholder = "Busqueda" }) --> 
+                        
+                        <input type="text"  id="lugar" name="lugar" class="form-control" placeholder="Busqueda" />
                     </div>
                     <div class="col-sm-2">
 
@@ -69,7 +67,8 @@
                 {
 
                     <div class="col-sm-2">
-                        @Html.TextBoxFor(x => x.Busqueda, new { @class = "form-control", placeholder = "Busqueda" })
+                       <!-- Html.TextBoxFor(x => x.Busqueda, new { class = "form-control", placeholder = "Busqueda" })-->
+                        <input type="text" id="destino" name="destino" class="form-control" placeholder="Busqueda" />
                     </div>
 
                     <div class="col-sm-2">
@@ -81,7 +80,8 @@
                 {
 
                     <div class="col-sm-2">
-                        @Html.TextBoxFor(x => x.Busqueda, new { @class = "form-control", placeholder = "Busqueda" })
+                        <!-- Html.TextBoxFor(x => x.Busqueda, new { class = "form-control", placeholder = "Busqueda" })-->
+                        <input type="text" id="pais" name="pais" class="form-control" placeholder="Busqueda" />
                     </div>
 
                     <div class="col-sm-2">

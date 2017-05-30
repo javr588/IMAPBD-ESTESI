@@ -1,8 +1,5 @@
-﻿@{
-    ViewBag.Title = "Lugares";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@model IMAPBD.Models.BusquedaCiudadModels
+﻿
+@model IEnumerable<IMAPBD.Models.CiudadDiaModels>
 @{
     ViewBag.Title = "Lugares";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +8,7 @@
 
 
 
-<h2>Busqueda de Ciudadaes</h2>
+<h2>Busqueda de Ciudades</h2>
 <div>
 
     <div class="container">
@@ -32,13 +29,13 @@
                             
                           
                         </tr>
-                        @foreach (var ciudad in Model.BusquedaCiudad)
+                        @foreach (var ciudad in Model)
                         {
                            
                             <tr>
-                                <td>@Html.TextBoxFor(m => ciudad.lugar)</td>
-                                <td>@Html.TextBoxFor(m => ciudad.dia)</td>
-                                <td>@Html.TextBoxFor(m => ciudad.bueno)</td>>
+                                <td>@Html.TextBoxFor(m => ciudad.lugar, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                <td>@Html.TextBoxFor(m => ciudad.dia, new { @readonly = true, @style="border:none;background-color: transparent;"})</td>
+                                <td>@Html.TextBoxFor(m => ciudad.bueno, new { @readonly = true, @style="border:none;background-color: transparent;"})</td>
                                 
                             </tr>
                         }

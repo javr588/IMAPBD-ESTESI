@@ -1,9 +1,7 @@
-﻿@{
-    ViewBag.Title = "Paises";
-}
+﻿
 @model  IEnumerable<IMAPBD.Models.LugarCalModel>
 @{
-    ViewBag.Title = "Lugares";
+    ViewBag.Title = "Paises";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,7 +15,7 @@
 
             <div class="col-md-8 col-md-offset-2 col-xs-12 col-xs-offset-0">
                 <h2>Resultados</h2>
-                <!-- On rows -->
+                
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
 
@@ -33,10 +31,10 @@
                         {
                             
                             <tr>
-                                <td>@Html.TextBoxFor(m => pais.pais)</td>
-                                <td>@Html.TextBoxFor(m => pais.lugar)</td>
-                                <td>@Html.TextBoxFor(m => pais.bueno)</td>>
-                                <td>@Html.TextBoxFor(m => pais.Año)</td>>
+                                <td>@Html.TextBoxFor(m => pais.pais, new { @readonly = true, @style="border:none;background-color: transparent;"} )</td>
+                                <td>@Html.TextBoxFor(m => pais.lugar, new { @readonly = true, @style="border:none;background-color: transparent;" })</td>
+                                <td>@Html.TextBoxFor(m => pais.bueno, new { @readonly = true, @style="border:none;background-color: transparent;" })</td>
+                                <td>@Html.TextBoxFor(m => pais.Año, new { @readonly = true, @style="border:none;background-color: transparent;" })</td>
 
                             </tr>
                         }

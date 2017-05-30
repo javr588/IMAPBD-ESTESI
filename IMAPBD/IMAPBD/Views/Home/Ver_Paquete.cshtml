@@ -1,4 +1,6 @@
-﻿@{
+﻿@model  IMAPBD.ViewModel.AdminViewModel.CrearPaquetesViewModel
+
+@{
     ViewBag.Title = "Ver_Paquete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -22,69 +24,72 @@
 
                 <div class="item">
                     <div>Información general</div>
-                    <p>Paquete de viajes</p>
+                    <p>@Html.TextBoxFor(m => m.InformacionGeneral, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
                 </div>
-
-                <div class="item">
-                    <div>Tipo de paquete</div>
-                    <p>Viaje</p>
+                <div class="col-xs-6">
+                    <div class="item">
+                        <div>Origen</div>
+                        <p>@Html.TextBoxFor(m => m.Origen, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
+                    </div>
                 </div>
+                
 
                 <div class="row">
 
-                    <div class="col-xs-6">
-                        <div class="item">
-                            <div>Origen</div>
-                            <p>Lima</p>
-                        </div>
-                    </div>
+                  
                     <div class="col-xs-6">
                         <div class="item">
                             <div>Destino</div>
-                            <p>Argentina</p>
+                            <p>@Html.TextBoxFor(m => m.Destino, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
                         </div>
                     </div>
 
                 </div>
-
+                <div class="col-xs-6">
+                    <div class="item">
+                        <div>Fecha de salida</div>
+                        <p>@Html.TextBoxFor(m => m.FechaSalida, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
+                    </div>
+                </div>
                 <div class="row">
 
-                    <div class="col-xs-6">
-                        <div class="item">
-                            <div>Fecha de salida</div>
-                            <p>21/05/2017</p>
-                        </div>
-                    </div>
+                    
 
                     <div class="col-xs-6">
                         <div class="item">
                             <div>Fecha de llegada</div>
-                            <p>21/05/2017</p>
+                            <p>@Html.TextBoxFor(m => m.FechaLlegada, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
                         </div>
                     </div>
 
                 </div>
 
+                <div class="col-xs-6">
+                    <div class="item">
+                        <div>Fecha de vencimiento</div>
+                        <p>@Html.TextBoxFor(m => m.FechaVencimiento, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
+                    </div>
+                </div>
 
                 <div class="row">
 
-                    <div class="col-xs-6">
-                        <div class="item">
-                            <div>Fecha de vencimiento</div>
-                            <p>21/05/2017</p>
-                        </div>
-                    </div>
 
                     <div class="col-xs-6">
                         <div class="item">
                             <div>Costo</div>
-                            <p>155 PEN</p>
+                            <p>@Html.TextBoxFor(m => m.Costo, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
                         </div>
                     </div>
-
+                    <div class="col-xs-6">
+                        <div class="item">
+                            <div>Moneda</div>
+                            <p>@Html.TextBoxFor(m => m.Moneda, new { @readonly = true, @style = "border:none;background-color: transparent;" })</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+           
 
             <div class="col-md-7 col-xs-12">
                 <h2>Actividades</h2>
@@ -118,7 +123,7 @@
                                 <td>155</td>
                                 <td>PEN</td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </div>

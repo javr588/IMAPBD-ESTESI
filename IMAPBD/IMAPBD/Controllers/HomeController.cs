@@ -46,10 +46,9 @@ namespace IMAPBD.Controllers
         }
         public ActionResult Index()
         {
-            if (!string.Equals(user,"admin"))
-                return View();
-            else
-                return View("~/Views/Home/Index_User.cshtml");
+            var listaPaquete = obj.QueryPaquete("Madrid");
+            return View("Index", listaPaquete);
+
         }
 
 
@@ -68,47 +67,44 @@ namespace IMAPBD.Controllers
             return View();
         }
 
+
         public ActionResult Index_User()
         {
-            return View();
+            var listaPaquete = obj.QueryPaquete("Madrid");
+            return View("Index_User", listaPaquete);
         }
 
          [HttpPost]
-        public ActionResult Lugares(BusquedaViewModel lugar)
+        public ActionResult Lugares(string lugar)
         {
             #region Query Lista cuidad: Retorna todos los dias calificados por ciudad de busqueda
-             BusquedaCiudadModels listaCuidad = new BusquedaCiudadModels();
-             foreach(var busq in obj.QueryCity(lugar.Busqueda)){
-                 listaCuidad.BusquedaCiudad.Add(busq);
-             }
-            
+            var lugares = obj.QueryCity(lugar);
             #endregion
-            return View("Lugares",listaCuidad);
+            return View("Lugares",lugares);
         }
 
         [HttpPost]
-         public ActionResult Paquetes(BusquedaViewModel destino)
+         public ActionResult Paquetes(string destino)
         {
             #region Query Paquete: Retorna todos los paquetes por destino
-            var listaPaquete = obj.QueryPaquete(destino.Busqueda);
+            var listaPaquete = obj.QueryPaquete(destino);
             #endregion
-            return View(listaPaquete);
+            return View("Paquetes", listaPaquete.AsEnumerable());
         }
 
         [HttpPost]
-        public ActionResult Paises(BusquedaViewModel pais)
+        public ActionResult Paises(string pais)
         {
             #region Query Lista Pais: Retorna todas las ciudades calificadas por pais de busqueda
-           /* BusquedaPaisViewModel listaPais = new BusquedaPaisViewModel();
-            foreach (var busq in obj.QueryCountry(pais.Busqueda)) {
-                listaPais.BusquedaPais.Add(busq);
-            }*/
+            var listaPais = obj.QueryCountry(pais);
             #endregion
-            return View(obj.QueryCountry(pais.Busqueda));
+            return View(listaPais);
         }
-        public ActionResult Ver_Paquete()
+
+        [HttpPost]
+        public ActionResult Ver_Paquete( CrearPaquetesViewModel paquete)
         {
-            return View();
+            return View(paquete);
         }
 
         public ActionResult CrearPaquete()
@@ -134,15 +130,18 @@ namespace IMAPBD.Controllers
                 user = model.User;
                 if (model.User.Equals("admin") && model.Password.Equals("1234"))
                 {
-                    return View("~/Views/Home/Index.cshtml");
+                    var listaPaquete = obj.QueryPaquete("Madrid");
+                    
+                    return View("Index", listaPaquete);
                 }
 
                 if (model.User.Equals("user") && model.Password.Equals("1234"))
                 {
-                    return View("~/Views/Home/Index_User.cshtml");
+                    var listaPaquete = obj.QueryPaquete("Madrid");
+                    return View("Index_User", listaPaquete);
                 }
             } 
-            return View();
+          return View();
         }
 
        

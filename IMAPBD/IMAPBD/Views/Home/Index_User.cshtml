@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<IMAPBD.ViewModel.AdminViewModel.CrearPaquetesViewModel>
+@{
     ViewBag.Title = "Index_User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -34,19 +35,30 @@
                             <td>Fecha Vencimiento</td>
                             <td>Acción</td>
                         </tr>
-                        <tr>
-                            <td>Viajar S.A.</td>
-                            <td>Lima</td>
-                            <td>21/05/2017</td>
-                            <td>Trujillo</td>
-                            <td>21/05/2017</td>
-                            <td>155</td>
-                            <td>Pen</td>
-                            <td>21/05/2017</td>
-                            <td>Acción</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-info" })
-                            <td>
-                        </tr>
+
+                        @foreach (var paquete in Model)
+                        {
+                            using (Html.BeginForm("Ver_Paquete", "Home", FormMethod.Post))
+                            {
+                                <tr>
+                                    <td>@Html.TextBoxFor(m => paquete.Empresa, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.Origen, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.FechaSalida, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.Destino, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.FechaLlegada, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.Costo, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.Moneda, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+                                    <td>@Html.TextBoxFor(m => paquete.FechaVencimiento, new { @readonly = true, @style = "border:none;background-color: transparent;" })</td>
+
+
+                                    @Html.TextBoxFor(m => paquete.InformacionGeneral, new { @type = "hidden", @readonly = true, @style = "border:none;background-color: transparent;" })
+                                    @Html.TextBoxFor(m => paquete.Tipo, new { type = "hidden", @readonly = true, @style = "border:none;background-color: transparent;" })
+                                    <td><button type="submit" class="btn btn-info pull-right">Ver</button></td>
+
+
+                                </tr>
+                            }
+                        }
 
                     </table>
                 </div>
