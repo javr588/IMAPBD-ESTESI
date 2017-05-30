@@ -2,6 +2,14 @@
     ViewBag.Title = "Lugares";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model IMAPBD.Models.BusquedaCiudadModels
+@{
+    ViewBag.Title = "Lugares";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
 
 <h2>Busqueda de Ciudadaes</h2>
 <div>
@@ -18,59 +26,23 @@
                     <table class="table table-condensed table-hover">
 
                         <tr>
-                            <td>Cotizaciones</td>
-                            <td>Origen</td>
-                            <td>Destino</td>
-                            <td>estatus</td>
+                            <td>Ciudad</td>
+                            <td>Dia</td>
+                            <td>Calificacion</td>
+                            
+                          
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                        </tr>
-                        <tr class="success">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>App roved</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                        </tr>
-                        <tr class="active">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Declined</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                        </tr>
-                        <tr class="warning">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr class="danger">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Call in to confirm</td>
-                        </tr>
+                        @foreach (var ciudad in Model.BusquedaCiudad)
+                        {
+                           
+                            <tr>
+                                <td>@Html.TextBoxFor(m => ciudad.lugar)</td>
+                                <td>@Html.TextBoxFor(m => ciudad.dia)</td>
+                                <td>@Html.TextBoxFor(m => ciudad.bueno)</td>>
+                                
+                            </tr>
+                        }
+                        
 
                     </table>
                 </div>

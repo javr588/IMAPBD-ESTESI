@@ -299,8 +299,14 @@
         <br />
         <div class="row">
 
-            <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
-                <h2>Paquetes publicados</h2>
+            
+                <div class="col-xs-8"><h2>Paquetes publicados</h2></div>
+                <div class="col-xs-4">@Html.ActionLink("Crear Paquete", "CrearPaquete", "Home", null, new { @class = "btn btn-primary" }) </div>
+
+                    
+
+                </div>
+                
                 <!-- On rows -->
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
@@ -312,102 +318,29 @@
                         <td class="danger">estatus</td>
                         </tr>-->
                         <tr>
-                            <td>Cotizaciones</td>
+                            <td>Empresa</td>
                             <td>Origen</td>
+                            <td>Fecha Salida</td>
                             <td>Destino</td>
-                            <td>Estatus</td>
-                            <td>Valoración</td>
-                            <td>Vencimiento</td>
+                            <td>Fecha Llegada</td>
+                            <td>Costo</td>
+                            <td>Moneda</td>
+                            <td>Fecha Vencimiento</td>
                             <td>Acción</td>
                         </tr>
                         <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" }) <td>
+                            <td>Viajar S.A.</td>
+                            <td>Lima</td>
+                            <td>21/05/2017</td>
+                            <td>Trujillo</td>
+                            <td>21/05/2017</td>
+                            <td>155</td>
+                            <td>Pen</td>
+                            <td>21/05/2017</td>
+                          
+                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-info" }) <td>
                         </tr>
-                        <tr class="success">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>App roved</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
-                        <tr class="active">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Declined</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Default</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
-                        <tr class="warning">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Pending</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
-                        <tr class="danger">
-                            <td>1</td>
-                            <td>Origen 1</td>
-                            <td>Destino 2</td>
-                            <td>Call in to confirm</td>
-                            <td>
-                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
-                            </td>
-                            <td>03-03-2017</td>
-                            <td> @Html.ActionLink("Ver", "Ver_Paquete", "Home", null, new { @class = "btn btn-primary" })</td>
-                        </tr>
+                        
 
                     </table>
                 </div>

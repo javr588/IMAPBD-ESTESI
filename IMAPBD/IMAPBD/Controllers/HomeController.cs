@@ -77,9 +77,13 @@ namespace IMAPBD.Controllers
         public ActionResult Lugares(BusquedaViewModel lugar)
         {
             #region Query Lista cuidad: Retorna todos los dias calificados por ciudad de busqueda
-            var listaCuidad = obj.QueryCity(lugar.Busqueda);
+             BusquedaCiudadModels listaCuidad = new BusquedaCiudadModels();
+             foreach(var busq in obj.QueryCity(lugar.Busqueda)){
+                 listaCuidad.BusquedaCiudad.Add(busq);
+             }
+            
             #endregion
-            return View();
+            return View("Lugares",listaCuidad);
         }
 
         [HttpPost]
@@ -88,25 +92,36 @@ namespace IMAPBD.Controllers
             #region Query Paquete: Retorna todos los paquetes por destino
             var listaPaquete = obj.QueryPaquete(destino.Busqueda);
             #endregion
-            return View();
+            return View(listaPaquete);
         }
 
         [HttpPost]
         public ActionResult Paises(BusquedaViewModel pais)
         {
             #region Query Lista Pais: Retorna todas las ciudades calificadas por pais de busqueda
-            var listaPais = obj.QueryCountry(pais.Busqueda);
+           /* BusquedaPaisViewModel listaPais = new BusquedaPaisViewModel();
+            foreach (var busq in obj.QueryCountry(pais.Busqueda)) {
+                listaPais.BusquedaPais.Add(busq);
+            }*/
             #endregion
-            return View();
+            return View(obj.QueryCountry(pais.Busqueda));
         }
         public ActionResult Ver_Paquete()
         {
             return View();
         }
 
-        public ActionResult CrearPaquete(CrearPaquetesViewModel Paquete)
+        public ActionResult CrearPaquete()
         {
-             obj.InsertPaquete(Paquete.Destino, Paquete.Origen,Convert.ToDateTime(Paquete.FechaLlegada).ToUniversalTime(), Convert.ToDateTime(Paquete.FechaSalida).ToUniversalTime(), Convert.ToDateTime(Paquete.FechaVencimiento).ToUniversalTime() ,Paquete.InformacionGeneral, Paquete.Moneda, Convert.ToDouble(Paquete.Costo), Paquete.Empresa, Paquete.LstActividades);
+             
+
+            return View("~/Views/Admin/CrearPaquete.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult InsertarPaquete(CrearPaquetesViewModel Paquete)
+        {
+          obj.InsertPaquete(Paquete.Destino, Paquete.Origen,Convert.ToDateTime(Paquete.FechaLlegada).ToUniversalTime(), Convert.ToDateTime(Paquete.FechaSalida).ToUniversalTime(), Convert.ToDateTime(Paquete.FechaVencimiento).ToUniversalTime() ,Paquete.InformacionGeneral, Paquete.Moneda, Convert.ToDouble(Paquete.Costo), "Viajar S.A."/*Paquete.Empresa*/, Paquete.LstActividades);
 
             return View("~/Views/Admin/CrearPaquete.cshtml");
         }

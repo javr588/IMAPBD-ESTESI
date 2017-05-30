@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+@using (Html.BeginForm("InsertarPaquete", "Home", FormMethod.Post))
+{
 <div class="row">
 
     <div class="col-md-5 col-xs-12">
@@ -12,19 +13,29 @@
         <!-- On rows -->
 
     </div>
-
+    
     <div class="col-md-7 col-xs-12">
-        <button type="submit" class="btn btn-success pull-right">Publicar paquete</button>
+      
+            
+
+                <button type="submit" class="btn btn-success pull-right">Publicar paquete</button>
+            
+        
+
     </div>
 
 </div>
-
+    
 <div class="row">
 
     <div class="col-md-5 col-xs-12">
         <form>
             <div class="form-group">
-                @Html.TextAreaFor( x=> x.InformacionGeneral,new { @class= "form-control", placeholder= "Información general" })
+                @Html.TextAreaFor(x => x.InformacionGeneral, new { @class = "form-control", placeholder = "Información general" })
+            </div>
+
+            <div class="form-group">
+                @Html.HiddenFor(x => x.Empresa, new { @class = "form-control", placeholder = "Empresa",value="Viajar S.A." })
             </div>
 
             <div class="form-group">
@@ -69,7 +80,7 @@
         </form>
 
     </div>
-
+    
     <div class="col-md-7 col-xs-12">
         <h3>Actividades</h3>
         <div class="table-responsive">
@@ -106,15 +117,16 @@
                         <select id="tipo_actividad" class="form-control">
                             <option>Viaje</option>
                             <option>Lima</option>
-                            <option>Estadia</option>
+                            <option>Paseo</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" class="form-control" id="origen_actividad" placeholder="Origen">
+                        <input type="text" class="form-control" id="origen_actividad" placeholder="Origen">
+                                                
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" id="destino_actividad" placeholder="Destino">
+                        <input type="text" class="form-control" id="destino_actividad" placeholder="Destino">
                     </div>
 
 
@@ -123,23 +135,23 @@
 
                 <div class="col-xs-6">
                     <div class="form-group">
-                        <input type="email" class="form-control" id="fSalidad__actividad" placeholder="Fecha salida">
+                        <input type="text" class="form-control" id="fSalidad__actividad" placeholder="Fecha salida">
                     </div>
 
                     <div class="form-group">
-                        <input type="email" class="form-control" id="fLlegada_actividad" placeholder="Fecha llegada">
+                        <input type="text" class="form-control" id="fLlegada_actividad" placeholder="Fecha llegada">
                     </div>
 
                     <div class="row">
 
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="costo_actividad" placeholder="Costo">
+                                <input type="text" class="form-control" id="costo_actividad" placeholder="Costo">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="moneda_actividad" placeholder="Moneda">
+                                <input type="text" class="form-control" id="moneda_actividad" placeholder="Moneda">
                             </div>
                         </div>
 
@@ -156,7 +168,7 @@
 
         </form>
     </div>
-
+    
 </div>
 
 @section Scripts{
@@ -165,7 +177,16 @@
 
         function agregarElemento()
         {
-            $('#actividades_agregadas > tbody:last-child').append('<tr><td>my data</td><td>more data</td><td>more data</td><td>more data</td><td>more data</td><td>more data</td></tr>');
+            tipo ="";
+            switch(tipo_actividad.tabIndex){
+                case 0: tipo="Viaje"; break;
+                case 1: tipo="Estadia"; break;
+                case 2: tipo="paseo";break;
+            }
+            $('#actividades_agregadas > tbody:last-child').append('<tr><td>' + tipo +'</td><td>'+origen_actividad.value+'</td><td>'+destino_actividad.value+'</td><td>'+fSalidad__actividad.value+'</td><td>'+fLlegada_actividad.value+'</td><td>'+costo_actividad.value+'</td></tr>');
         }
+        
     </script>
+}
+    
 }

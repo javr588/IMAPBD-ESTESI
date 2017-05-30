@@ -319,6 +319,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Load_TweetController.cs" />
     <Compile Include="Models\ActividadesModels.cs" />
+    <Compile Include="Models\BusquedaCiudadModels.cs" />
     <Compile Include="Models\CiudadDiaModels.cs" />
     <Compile Include="Models\LugarCalModel.cs" />
     <Compile Include="Models\TweetClass.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminViewModel\CrearPaquetesViewModel.cs" />
+    <Compile Include="ViewModel\BusquedaPaisViewModel.cs" />
     <Compile Include="ViewModel\BusquedaViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
   </ItemGroup>
@@ -477,7 +479,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>27792</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:27792/</IISUrl>
+          <IISUrl>http://localhost:27712/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
